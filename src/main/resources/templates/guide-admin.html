@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Guide Admin</title>
+</head>
+<body>
+<h1>Guide Admin Page</h1>
+
+<h2>Register new guide</h2>
+<form th:action="@{/admin/guide/register}" method="post">
+  Address: <input type="text" name="guideAddress"/><br/>
+  Guide ID: <input type="text" name="guideId"/><br/>
+  Metadata: <input type="text" name="metadata"/><br/>
+  <button type="submit">Register</button>
+</form>
+
+<h2>Update guide metadata</h2>
+<form th:action="@{/admin/guide/update}" method="post">
+  Address: <input type="text" name="guideAddress"/><br/>
+  Metadata: <input type="text" name="metadata"/><br/>
+  <button type="submit">Update</button>
+</form>
+
+<h2>Get guide info</h2>
+<form th:action="@{/admin/guide/view}" method="get">
+  Address: <input type="text" name="guideAddress"/><br/>
+  <button type="submit">View</button>
+</form>
+
+<div th:if="${guide != null}">
+  <h3>Guide Info</h3>
+  <ul>
+    <li>Address: <span th:text="${guide.guideAddress}"/></li>
+    <li>Guide ID: <span th:text="${guide.guideId}"/></li>
+    <li>Metadata: <span th:text="${guide.metadata}"/></li>
+    <li>Active: <span th:text="${guide.active}"/></li>
+  </ul>
+</div>
+
+<div th:if="${message != null}">
+  <p th:text="${message}" style="color:green"/>
+</div>
+
+<h2>View all guides</h2>
+<form th:action="@{/admin/guide/all}" method="get">
+  <button type="submit">전체 가이드 목록 조회</button>
+</form>
+
+<div th:if="${guides != null}">
+  <h3>전체 가이드 목록</h3>
+  <table border="1">
+    <tr>
+      <th>Address</th>
+      <th>Guide ID</th>
+      <th>Metadata</th>
+      <th>Active</th>
+    </tr>
+    <tr th:each="guide : ${guides}">
+      <td th:text="${guide.component1}"></td>   <!-- address -->
+      <td th:text="${guide.component2}"></td>   <!-- guideId -->
+      <td th:text="${guide.component3}"></td>   <!-- metadata -->
+      <td th:text="${guide.component4}"></td>   <!-- active -->
+    </tr>
+  </table>
+</div>
+</body>
+</html>
